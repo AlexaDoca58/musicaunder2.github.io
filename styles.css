@@ -1,52 +1,39 @@
 :root {
-    --bg-color: #1a1a2e; 
-    --main-bg: #0d0d21; 
-    --sidebar-color: #24143a; 
+    --bg-color: #0d0d21; /* Fondo principal oscuro */
+    --sidebar-color: #24143a; /* Púrpura oscuro para secciones */
     --text-color: #e9e9f4;
-    --primary-color: #f7e040; 
-    --accent-color: #8c7ae6; 
+    --primary-color: #f7e040; /* Amarillo para acentos principales */
+    --accent-color: #8c7ae6; /* Púrpura de acento */
     --border-color: #3e3e5e;
-    --hover-color: #9c9cff; 
+    --card-bg: #1a1a2e;
 }
 
-/* --- REGLAS BÁSICAS --- */
+/* --- REGLAS BÁSICAS MÓVILES --- */
 body {
-    background-color: var(--main-bg);
+    background-color: var(--bg-color);
     color: var(--text-color);
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
     padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    min-height: 100vh;
 }
 
 .main-container {
-    display: flex;
-    width: 95%;
-    max-width: 1400px;
+    width: 100%;
     min-height: 100vh;
+    display: flex;
+    flex-direction: column; /* Forzamos la estructura de columna vertical */
     background-color: var(--bg-color);
-    border-radius: 10px;
-    overflow: hidden;
-    margin: 20px 0;
+    padding-bottom: 50px; /* Espacio para la barra de navegación de la app (si existe) */
 }
 
-/* --- BARRA LATERAL IZQUIERDA --- */
-.sidebar-left {
-    width: 350px;
-    background-color: var(--sidebar-color);
-    padding: 25px;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    border-right: 1px solid var(--border-color);
+/* --- ENCABEZADO Y CONTROLES SUPERIORES --- */
+.app-header {
+    background-color: var(--sidebar-color); /* Color oscuro del encabezado */
+    padding: 20px;
 }
 
 .page-header h1 {
-    font-size: 1em;
+    font-size: 1.1em;
     margin-bottom: 5px;
     color: var(--accent-color);
 }
@@ -57,133 +44,46 @@ body {
     font-weight: bold;
 }
 
-.filter-section h3, .featured-list h3, .recommended-lists h3 {
-    margin-top: 0;
-    margin-bottom: 10px;
-    color: var(--text-color);
-    font-size: 1.1em;
-}
-
-.filters {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-}
-
-.filter-btn {
-    background-color: #4a3360;
-    color: var(--text-color);
-    border: none;
-    padding: 8px 15px;
-    border-radius: 20px;
-    cursor: pointer;
-    transition: background-color 0.2s, color 0.2s;
-}
-
-.filter-btn:hover {
-    background-color: #6a4380;
-}
-
-.filter-btn.active {
-    background-color: var(--accent-color);
-    color: #fff;
-}
-
-/* Lista de Canciones */
-.tracklist {
-    list-style: none;
-    padding: 0;
-}
-
-.tracklist li {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    margin-bottom: 5px;
-    cursor: pointer;
-    border-radius: 6px;
-    transition: background-color 0.2s;
-}
-
-.tracklist li:hover {
-    background-color: rgba(255, 255, 255, 0.05);
-}
-
-.tracklist li.playing {
-    background-color: rgba(140, 122, 230, 0.15); 
-    border-left: 3px solid var(--accent-color);
-    padding-left: 7px;
-}
-
-.track-info-sidebar {
-    display: flex;
-    flex-direction: column;
-}
-
-.track-title-sidebar {
-    font-weight: bold;
-}
-
-.track-artist-time {
-    font-size: 0.8em;
-    color: #b0b0d0;
-}
-
-.track-artist-time span {
-    margin-right: 5px;
-}
-
-.tracklist .add-btn {
-    background-color: var(--accent-color);
-    color: #fff;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-/* --- PANEL PRINCIPAL DE REPRODUCCIÓN --- */
-.main-panel {
-    flex-grow: 1;
-    padding: 25px;
-    display: flex;
-    flex-direction: column;
-    gap: 25px;
-    overflow-y: auto;
-}
-
 .top-controls {
     display: flex;
-    justify-content: flex-end;
-    gap: 15px;
+    justify-content: space-around;
+    gap: 10px;
+    margin-top: 15px;
 }
 
 .mix-btn, .play-all-btn {
-    background-color: transparent;
+    flex: 1;
+    background-color: var(--card-bg);
     border: 1px solid var(--border-color);
     color: var(--text-color);
-    padding: 10px 20px;
+    padding: 10px;
     border-radius: 25px;
     cursor: pointer;
+    font-weight: bold;
     transition: background-color 0.2s;
 }
 
 .play-all-btn {
     background-color: var(--primary-color);
-    color: #1a1a2e;
-    font-weight: bold;
+    color: var(--bg-color);
     border: none;
 }
 
-.play-all-btn:hover {
-    filter: brightness(1.1);
+.mix-btn.active {
+    background-color: var(--accent-color);
 }
 
-/* Reproductor y Visualizador */
-.player-visualizer-section {
-    background-color: #1a1a2e;
+/* --- PANEL PRINCIPAL (El resto del contenido) --- */
+.main-panel {
     padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.player-visualizer-section {
+    background-color: var(--card-bg);
+    padding: 15px;
     border-radius: 10px;
     display: flex;
     flex-direction: column;
@@ -202,49 +102,44 @@ body {
 }
 
 .track-title-main {
-    font-size: 1.5em;
+    font-size: 1.3em;
     font-weight: bold;
 }
 
 .track-artist {
     color: var(--accent-color);
+    font-size: 0.9em;
+}
+
+.player-actions {
+    display: flex;
+    gap: 5px;
 }
 
 .player-actions button {
     background-color: var(--border-color);
     color: var(--text-color);
     border: none;
-    padding: 10px 20px;
-    border-radius: 25px;
+    padding: 8px 12px;
+    border-radius: 20px;
     cursor: pointer;
-    margin-left: 10px;
-    transition: background-color 0.2s;
 }
 
-.player-actions button:hover {
-    background-color: #4a3360;
-}
-
-.fav-btn {
-    color: var(--accent-color);
-}
 .fav-btn.active {
-    color: #ff4444; /* Rojo para favorito activo */
+    color: #ff4444; /* Corazón rojo al activar */
 }
 
 .download-btn {
     background-color: var(--primary-color);
-    color: #1a1a2e;
+    color: var(--bg-color);
     font-weight: bold;
-    border: none;
 }
 
 /* Visualizador */
 .visualizer-container {
     width: 100%;
-    height: 250px;
+    height: 150px; /* Más pequeño para móvil */
     position: relative;
-    overflow: hidden;
     background-color: var(--border-color);
     border-radius: 8px;
     display: flex;
@@ -272,33 +167,27 @@ body {
 .transport-controls {
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 8px;
 }
 
 .transport-controls button {
     background: none;
     border: none;
     color: var(--text-color);
-    font-size: 1.5em;
+    font-size: 1.2em;
     cursor: pointer;
-    transition: color 0.2s;
 }
 
 .play-pause-lg {
-    font-size: 2.5em !important;
+    font-size: 2.2em !important;
     color: var(--primary-color) !important;
-}
-
-.transport-controls button:hover {
-    color: var(--hover-color);
 }
 
 .progress-bar-container {
     flex-grow: 1;
-    margin: 0 15px;
+    margin: 0 10px;
 }
 
-/* Estilo de la barra de progreso (input type="range") */
 .progress-slider {
     width: 100%;
     -webkit-appearance: none;
@@ -311,18 +200,12 @@ body {
 .progress-slider::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
-    width: 15px;
-    height: 15px;
+    width: 12px;
+    height: 12px;
     background: var(--primary-color);
     border-radius: 50%;
     cursor: pointer;
-    transition: background-color 0.2s;
 }
-
-.progress-slider::-webkit-slider-thumb:hover {
-    background: var(--hover-color);
-}
-
 
 .visualizer-toggle {
     font-size: 1em !important;
@@ -331,66 +214,118 @@ body {
     color: var(--primary-color);
 }
 
-/* Sugerencias de Canciones */
 .song-suggestions {
     display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    padding-top: 10px;
+    gap: 8px;
+    overflow-x: auto; /* Permite desplazamiento horizontal en sugerencias */
+    padding-bottom: 5px;
+    white-space: nowrap;
 }
 
 .suggestion-btn {
     background-color: var(--sidebar-color);
     color: var(--text-color);
     border: 1px solid var(--border-color);
-    padding: 8px 15px;
-    border-radius: 25px;
+    padding: 6px 12px;
+    border-radius: 20px;
     cursor: pointer;
-    transition: background-color 0.2s;
+    font-size: 0.9em;
 }
 
-.suggestion-btn.active {
-    background-color: var(--accent-color);
-    border-color: var(--accent-color);
+/* --- CONTENIDO LATERAL EN MÓVIL (Filtros y Lista) --- */
+
+.side-content-mobile {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
-.suggestion-btn:hover:not(.active) {
+.filter-section h3, .featured-list h3, .recommended-lists h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    color: var(--text-color);
+    font-size: 1.1em;
+}
+
+.filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.filter-btn {
     background-color: #4a3360;
+    color: var(--text-color);
+    border: none;
+    padding: 8px 15px;
+    border-radius: 20px;
+    cursor: pointer;
 }
 
-/* --- LISTAS RECOMENDADAS --- */
-.recommended-lists {
-    padding-top: 20px;
+.filter-btn.active {
+    background-color: var(--accent-color);
+    color: #fff;
 }
 
+/* Lista de Canciones */
+.tracklist {
+    list-style: none;
+    padding: 0;
+}
+
+.tracklist li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    margin-bottom: 5px;
+    cursor: pointer;
+    border-radius: 6px;
+    background-color: var(--card-bg); /* Fondo para cada elemento de lista */
+    border-left: 3px solid transparent;
+}
+
+.tracklist li.playing {
+    border-left: 3px solid var(--primary-color);
+    background-color: rgba(247, 224, 64, 0.1); /* Fondo claro de amarillo */
+}
+
+.track-info-sidebar {
+    display: flex;
+    flex-direction: column;
+}
+
+.track-title-sidebar {
+    font-weight: bold;
+}
+
+.track-artist-time {
+    font-size: 0.8em;
+    color: #b0b0d0;
+}
+
+.tracklist .add-btn {
+    background-color: var(--accent-color);
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9em;
+}
+
+/* Listas Recomendadas */
 .chapters-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 15px;
-    margin-bottom: 20px;
+    grid-template-columns: 1fr 1fr; /* Dos columnas en móvil */
+    gap: 10px;
+    margin-bottom: 15px;
 }
 
 .chapter-card {
     background-color: var(--border-color);
-    padding: 15px;
+    padding: 12px;
     border-radius: 8px;
-    transition: background-color 0.2s;
-    cursor: pointer;
-}
-
-.chapter-card:hover {
-    background-color: #535384;
-}
-
-.chapter-card h4 {
-    margin: 0 0 5px 0;
-    color: var(--primary-color);
-}
-
-.chapter-card p {
-    margin: 0;
-    font-size: 0.9em;
-    color: #b0b0d0;
 }
 
 .flowey-btn {
@@ -399,16 +334,9 @@ body {
     border: none;
     padding: 10px 20px;
     border-radius: 25px;
-    cursor: pointer;
     float: right;
-    transition: background-color 0.2s;
 }
 
-.flowey-btn:hover {
-    background-color: #8c7ae6;
-}
-
-/* Clases de utilidad */
 .error-message {
     color: #ff4444;
     text-align: center;
