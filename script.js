@@ -9,10 +9,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const tracklistUl = document.getElementById('tracklist-ul');
     const visualizerCanvas = document.getElementById('frequency-visualizer');
     const progressBar = document.getElementById('progress-bar');
-    const visualizerToggleBtn = document.querySelector('.visualizer-toggle'); // NUEVO: Botón de Visualizador
-    const playAllBtn = document.querySelector('.play-all-btn'); // NUEVO: Botón Reproducir Todo
-    const mixBtn = document.querySelector('.mix-btn'); // NUEVO: Botón Mezclar
-    const favBtn = document.querySelector('.fav-btn'); // NUEVO: Botón Favorito
+    const visualizerToggleBtn = document.querySelector('.visualizer-toggle'); // NUEVO
+    const playAllBtn = document.querySelector('.play-all-btn'); // NUEVO
+    const mixBtn = document.querySelector('.mix-btn'); // NUEVO
+    const favBtn = document.querySelector('.fav-btn'); // NUEVO
     const canvasCtx = visualizerCanvas.getContext('2d');
     
     // Crear elemento de mensaje de error
@@ -23,24 +23,40 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 2. LISTA DE CANCIONES Y ESTADOS
     const tracks = [
-        // Asegúrate de que los nombres de archivo y la duración sean CORRECTOS.
-        { title: '01. Once Upon a Time', src: './Audio/01. Once Upon A Time.mp3', duration: '1:30' },
-        { title: '02. Fallen Down', src: './Audio/04. Fallen Down.mp3', duration: '0:58' },
-        { title: '03. Your Best Friend', src: './Audio/03. Your Best Friend.mp3', duration: '0:20' },
-        { title: '04. Ruins', src: './Audio/05. Ruins.mp3', duration: '1:30' },
-        { title: '05. Heartache', src: './Audio/14. Heartache.mp3', duration: '1:34' },
-        { title: '06. Snowdin Town', src: './Audio/22. Snowdin Town.mp3', duration: '1:17' },
-        { title: '07. Bonetrousle', src: './Audio/24. Bonetrousle.mp3', duration: '2:30' },
-        { title: '08. Waterfall', src: './Audio/31. Waterfall.mp3', duration: '1:36' },
-        { title: '09. Temmie Village', src: './Audio/43. Temmie Village.mp3', duration: '0:30' },
-        { title: '10. Spear of Justice', src: './Audio/46. Spear of Justice.mp3', duration: '1:54' },
-        { title: '11. Dating Start!', src: './Audio/25. Dating Start!.mp3', duration: '1:56' },
-        { title: '12. Death by Glamour', src: './Audio/67. Death by Glamour.mp3', duration: '2:14' },
-        { title: '13. Spider Dance', src: './Audio/58. Spider Dance.mp3', duration: '1:46' },
-        { title: '14. ASGORE', src: './Audio/74. ASGORE.mp3', duration: '2:36' },
-        { title: '15. MEGALOVANIA', src: './Audio/94. MEGALOVANIA.mp3', duration: '2:36' }
-    ];
 
+        // Asegúrate de que los nombres de archivo y la duración sean CORRECTOS.
+
+        { title: '01. Once Upon a Time', src: './Audio/01. Once Upon A Time.mp3', duration: '1:30' },
+
+        { title: '02. Fallen Down', src: './Audio/04. Fallen Down.mp3', duration: '0:58' },
+
+        { title: '03. Your Best Friend', src: './Audio/03. Your Best Friend.mp3', duration: '0:20' },
+
+        { title: '04. Ruins', src: './Audio/05. Ruins.mp3', duration: '1:30' },
+
+        { title: '05. Heartache', src: './Audio/14. Heartache.mp3', duration: '1:34' },
+
+        { title: '06. Snowdin Town', src: './Audio/22. Snowdin Town.mp3', duration: '1:17' },
+
+        { title: '07. Bonetrousle', src: './Audio/24. Bonetrousle.mp3', duration: '2:30' },
+
+        { title: '08. Waterfall', src: './Audio/31. Waterfall.mp3', duration: '1:36' },
+
+        { title: '09. Temmie Village', src: './Audio/43. Temmie Village.mp3', duration: '0:30' },
+
+        { title: '10. Spear of Justice', src: './Audio/46. Spear of Justice.mp3', duration: '1:54' },
+
+        { title: '11. Dating Start!', src: './Audio/25. Dating Start!.mp3', duration: '1:56' },
+
+        { title: '12. Death by Glamour', src: './Audio/67. Death by Glamour.mp3', duration: '2:14' },
+
+        { title: '13. Spider Dance', src: './Audio/58. Spider Dance.mp3', duration: '1:46' },
+
+        { title: '14. ASGORE', src: './Audio/74. ASGORE.mp3', duration: '2:36' },
+
+        { title: '15. MEGALOVANIA', src: './Audio/94. MEGALOVANIA.mp3', duration: '2:36' }
+
+    ];
     const audio = new Audio();
     audio.id = 'miAudio';
     document.body.appendChild(audio);
@@ -52,8 +68,8 @@ document.addEventListener('DOMContentLoaded', () => {
     let dataArray;
     let animationId;
     let isUserInteraction = false;
-    let isVisualizerActive = true; // Estado del visualizador
-    let isShuffling = false; // Estado de mezcla (shuffle)
+    let isVisualizerActive = true; 
+    let isShuffling = false; 
 
     // 3. FUNCIONES DE AUDIO CONTEXT Y VISUALIZADOR
 
@@ -71,6 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     sourceNode.connect(analyser);
                     analyser.connect(audioContext.destination);
                 }
+                visualizerToggleBtn.classList.add('active'); // Activo por defecto
             } catch (error) {
                 showError('Error al inicializar el audio: ' + error.message);
                 return false;
@@ -86,7 +103,6 @@ document.addEventListener('DOMContentLoaded', () => {
         
         analyser.getByteFrequencyData(dataArray);
 
-        // Ajustar tamaño del canvas
         visualizerCanvas.width = visualizerCanvas.clientWidth;
         visualizerCanvas.height = visualizerCanvas.clientHeight;
         
@@ -99,8 +115,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const barHeight = (dataArray[i] / 255) * visualizerCanvas.height;
             
             const gradient = canvasCtx.createLinearGradient(0, visualizerCanvas.height - barHeight, 0, visualizerCanvas.height);
-            gradient.addColorStop(0, '#f7e040'); 
-            gradient.addColorStop(1, '#8c7ae6'); 
+            gradient.addColorStop(0, '#f7e040'); // Amarillo
+            gradient.addColorStop(1, '#8c7ae6'); // Púrpura
             
             canvasCtx.fillStyle = gradient;
             canvasCtx.fillRect(x, visualizerCanvas.height - barHeight, barWidth, barHeight);
@@ -139,7 +155,6 @@ document.addEventListener('DOMContentLoaded', () => {
             playPauseBtn.innerHTML = '<i class="fa-solid fa-play"></i>';
         }
         
-        // Actualizar la clase 'playing' en la lista
         document.querySelectorAll('.tracklist li').forEach((li, i) => {
             li.classList.toggle('playing', i === index);
         });
@@ -150,7 +165,6 @@ document.addEventListener('DOMContentLoaded', () => {
         
         audio.load();
         
-        // Resetear la barra de progreso
         progressBar.value = 0;
     };
 
@@ -195,14 +209,12 @@ document.addEventListener('DOMContentLoaded', () => {
     playNextTrack = () => {
         let nextIndex;
         if (isShuffling) {
-            // Lógica de mezcla
             let randomIndex;
             do {
                 randomIndex = Math.floor(Math.random() * tracks.length);
-            } while (randomIndex === currentTrackIndex); // Asegura que no se repita inmediatamente
+            } while (randomIndex === currentTrackIndex); 
             nextIndex = randomIndex;
         } else {
-            // Lógica normal
             nextIndex = (currentTrackIndex + 1) % tracks.length;
         }
         
@@ -221,10 +233,11 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const handlePlayAll = () => {
-        loadTrack(0); // Carga la primera canción
+        loadTrack(0); 
         if (isShuffling) {
-            isShuffling = false; // Desactiva mezcla si ya estaba
+            isShuffling = false; 
             mixBtn.classList.remove('active');
+            mixBtn.innerHTML = '<i class="fa-solid fa-shuffle"></i> Mezclar';
         }
         setTimeout(() => togglePlayPause(), 100);
     };
@@ -257,7 +270,6 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
             
             li.addEventListener('click', (e) => {
-                // Previene que el clic en el botón Añadir inicie la reproducción
                 if (!e.target.closest('.add-btn')) {
                     loadTrack(index);
                     setTimeout(() => togglePlayPause(), 100);
@@ -284,7 +296,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // Placeholder para los botones de Filtro y Sugerencias
     document.querySelectorAll('.filter-btn, .suggestion-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
-            // Lógica simple para simular el cambio de estado
             e.target.parentNode.querySelectorAll('button').forEach(b => b.classList.remove('active'));
             e.target.classList.add('active');
             showError(`Filtro "${e.target.textContent}" aplicado (Simulación).`);
