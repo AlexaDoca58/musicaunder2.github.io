@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UNDERTALE Soundtrack - Pro</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <div class="main-container">
+        
+        <aside class="sidebar-left">
+            <header class="page-header">
+                <h1>Banda sonora</h1>
+                <h2>Música de Undertale</h2>
+            </header>
+
+            <div class="filter-section">
+                <h3>Filtros</h3>
+                <div class="filters">
+                    <button class="filter-btn active">Icónicas</button>
+                    <button class="filter-btn">Ambient</button>
+                    <button class="filter-btn">Batalla</button>
+                    <button class="filter-btn">Relajadas</button>
+                </div>
+            </div>
+
+            <div class="featured-list">
+                <h3>Lista destacada</h3>
+                <ul id="tracklist-ul" class="tracklist">
+                    </ul>
+            </div>
+        </aside>
+
+        <main class="main-panel">
+            <div class="top-controls">
+                <button class="mix-btn"><i class="fa-solid fa-shuffle"></i> Mezclar</button>
+                <button class="play-all-btn"><i class="fa-solid fa-play"></i> Reproducir todo</button>
+            </div>
+            
+            <div id="music-section" class="content-section active">
+                <div class="player-visualizer-section">
+                    
+                    <div class="player-header">
+                        <div class="current-track-info">
+                            <span id="track-title" class="track-title-main">Selecciona una canción</span>
+                            <span class="track-artist">Toby Fox</span>
+                        </div>
+                        <div class="player-actions">
+                            <button class="fav-btn"><i class="fa-solid fa-heart"></i> Favorito</button>
+                            <button class="download-btn"><i class="fa-solid fa-download"></i> Descargar</button>
+                        </div>
+                    </div>
+                    
+                    <div class="visualizer-container">
+                        <div class="background-image"></div>
+                        <canvas id="frequency-visualizer"></canvas>
+                        <span class="visualizer-text">Visualizador de audio</span>
+                    </div>
+
+                    <div class="transport-controls">
+                        <button class="prev-btn" onclick="playPrevTrack()"><i class="fa-solid fa-backward-step"></i></button>
+                        <button id="play-pause-btn" class="play-pause-lg"><i class="fa-solid fa-play"></i></button>
+                        <button class="next-btn" onclick="playNextTrack()"><i class="fa-solid fa-forward-step"></i></button>
+                        
+                        <div class="progress-bar-container">
+                            <input type="range" id="progress-bar" min="0" max="100" step="0.1" value="0" class="progress-slider">
+                        </div>
+                        
+                        <button class="volume-btn"><i class="fa-solid fa-volume-high"></i></button>
+                        <button class="visualizer-toggle"><i class="fa-solid fa-chart-bar"></i> Visualizador</button>
+                    </div>
+
+                    <div class="song-suggestions">
+                        <button class="suggestion-btn active">Megalovania</button>
+                        <button class="suggestion-btn">Hopes and Dreams</button>
+                        <button class="suggestion-btn">His Theme</button>
+                        <button class="suggestion-btn">ASGORE</button>
+                    </div>
+
+                </div>
+            </div>
+            
+            <div class="recommended-lists">
+                <h3>Listas recomendadas</h3>
+                <div class="chapters-grid">
+                    <div class="chapter-card">
+                        <h4>Ruinas</h4>
+                        <p>Ruins · Home · Heartache</p>
+                    </div>
+                    <div class="chapter-card">
+                        <h4>Snowdin</h4>
+                        <p>Snowdin Town · Bonetrousle</p>
+                    </div>
+                    <div class="chapter-card">
+                        <h4>Waterfall</h4>
+                        <p>Quiet Water · Temmie Village</p>
+                    </div>
+                    <div class="chapter-card">
+                        <h4>Hotland</h4>
+                        <p>Another Medium · Metal Crusher</p>
+                    </div>
+                </div>
+                <button class="flowey-btn"><i class="fa-solid fa-seedling"></i> Generar con Flowey</button>
+            </div>
+        </main>
+    </div>
+    
+    <audio id="miAudio" style="display: none;"></audio>
+    
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,414 @@
+:root {
+    --bg-color: #1a1a2e; /* Fondo oscuro principal */
+    --main-bg: #0d0d21; /* Color de la aplicación (el gris más oscuro) */
+    --sidebar-color: #24143a; /* Fondo de la barra lateral (el púrpura oscuro) */
+    --text-color: #e9e9f4;
+    --primary-color: #f7e040; /* Amarillo brillante para botones principales */
+    --accent-color: #8c7ae6; /* Púrpura de acento */
+    --border-color: #3e3e5e;
+    --hover-color: #9c9cff; /* Azul claro para hover */
+}
+
+/* --- REGLAS BÁSICAS --- */
+body {
+    background-color: var(--main-bg);
+    color: var(--text-color);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+}
+
+.main-container {
+    display: flex;
+    width: 95%;
+    max-width: 1400px;
+    min-height: 100vh;
+    background-color: var(--bg-color);
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 20px 0;
+}
+
+/* --- BARRA LATERAL IZQUIERDA --- */
+.sidebar-left {
+    width: 350px;
+    background-color: var(--sidebar-color);
+    padding: 25px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    border-right: 1px solid var(--border-color);
+}
+
+.page-header h1 {
+    font-size: 1em;
+    margin-bottom: 5px;
+    color: var(--accent-color);
+}
+
+.page-header h2 {
+    font-size: 1.8em;
+    margin-top: 0;
+    font-weight: bold;
+}
+
+.filter-section h3, .featured-list h3, .recommended-lists h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    color: var(--text-color);
+    font-size: 1.1em;
+}
+
+.filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.filter-btn {
+    background-color: #4a3360;
+    color: var(--text-color);
+    border: none;
+    padding: 8px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.filter-btn:hover {
+    background-color: #6a4380;
+}
+
+.filter-btn.active {
+    background-color: var(--accent-color);
+    color: #fff;
+}
+
+/* Lista de Canciones */
+.tracklist {
+    list-style: none;
+    padding: 0;
+}
+
+.tracklist li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    margin-bottom: 5px;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: background-color 0.2s;
+}
+
+.tracklist li:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.tracklist li.playing {
+    background-color: rgba(140, 122, 230, 0.15); 
+    border-left: 3px solid var(--accent-color);
+    padding-left: 7px;
+}
+
+.track-info-sidebar {
+    display: flex;
+    flex-direction: column;
+}
+
+.track-title-sidebar {
+    font-weight: bold;
+}
+
+.track-artist-time {
+    font-size: 0.8em;
+    color: #b0b0d0;
+}
+
+.track-artist-time span {
+    margin-right: 5px;
+}
+
+.tracklist .add-btn {
+    background-color: var(--accent-color);
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* --- PANEL PRINCIPAL DE REPRODUCCIÓN --- */
+.main-panel {
+    flex-grow: 1;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    overflow-y: auto;
+}
+
+.top-controls {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+}
+
+.mix-btn, .play-all-btn {
+    background-color: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    padding: 10px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.play-all-btn {
+    background-color: var(--primary-color);
+    color: #1a1a2e;
+    font-weight: bold;
+    border: none;
+}
+
+.play-all-btn:hover {
+    filter: brightness(1.1);
+}
+
+/* Reproductor y Visualizador */
+.player-visualizer-section {
+    background-color: #1a1a2e;
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.player-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.current-track-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.track-title-main {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.track-artist {
+    color: var(--accent-color);
+}
+
+.player-actions button {
+    background-color: var(--border-color);
+    color: var(--text-color);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    margin-left: 10px;
+    transition: background-color 0.2s;
+}
+
+.player-actions button:hover {
+    background-color: #4a3360;
+}
+
+.fav-btn {
+    color: var(--accent-color);
+}
+
+.download-btn {
+    background-color: var(--primary-color);
+    color: #1a1a2e;
+    font-weight: bold;
+    border: none;
+}
+
+/* Visualizador */
+.visualizer-container {
+    width: 100%;
+    height: 250px;
+    position: relative;
+    overflow: hidden;
+    background-color: var(--border-color);
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.visualizer-text {
+    position: absolute;
+    color: rgba(255, 255, 255, 0.4);
+    font-style: italic;
+    pointer-events: none;
+    z-index: 1;
+}
+
+#frequency-visualizer {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    z-index: 2;
+    display: block;
+}
+
+/* Controles de Transporte */
+.transport-controls {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.transport-controls button {
+    background: none;
+    border: none;
+    color: var(--text-color);
+    font-size: 1.5em;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.play-pause-lg {
+    font-size: 2.5em !important;
+    color: var(--primary-color) !important;
+}
+
+.transport-controls button:hover {
+    color: var(--hover-color);
+}
+
+.progress-bar-container {
+    flex-grow: 1;
+    margin: 0 15px;
+}
+
+/* Estilo de la barra de progreso (input type="range") */
+.progress-slider {
+    width: 100%;
+    -webkit-appearance: none;
+    appearance: none;
+    height: 5px;
+    background: #3e3e5e;
+    border-radius: 5px;
+}
+
+.progress-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 15px;
+    height: 15px;
+    background: var(--primary-color);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.progress-slider::-webkit-slider-thumb:hover {
+    background: var(--hover-color);
+}
+
+
+.visualizer-toggle {
+    font-size: 1em !important;
+}
+
+/* Sugerencias de Canciones */
+.song-suggestions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    padding-top: 10px;
+}
+
+.suggestion-btn {
+    background-color: var(--sidebar-color);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    padding: 8px 15px;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.suggestion-btn.active {
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+}
+
+.suggestion-btn:hover:not(.active) {
+    background-color: #4a3360;
+}
+
+/* --- LISTAS RECOMENDADAS --- */
+.recommended-lists {
+    padding-top: 20px;
+}
+
+.chapters-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.chapter-card {
+    background-color: var(--border-color);
+    padding: 15px;
+    border-radius: 8px;
+    transition: background-color 0.2s;
+    cursor: pointer;
+}
+
+.chapter-card:hover {
+    background-color: #535384;
+}
+
+.chapter-card h4 {
+    margin: 0 0 5px 0;
+    color: var(--primary-color);
+}
+
+.chapter-card p {
+    margin: 0;
+    font-size: 0.9em;
+    color: #b0b0d0;
+}
+
+.flowey-btn {
+    background-color: #6a4380;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    float: right;
+    transition: background-color 0.2s;
+}
+
+.flowey-btn:hover {
+    background-color: #8c7ae6;
+}
+
+/* Clases de utilidad */
+.error-message {
+    color: #ff4444;
+    text-align: center;
+    padding: 10px;
+    margin-top: 10px;
+    display: none;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 4px;
+}
