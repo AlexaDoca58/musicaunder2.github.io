@@ -1,12 +1,12 @@
 :root {
-    --bg-color: #1a1a2e; /* Fondo oscuro principal */
-    --main-bg: #0d0d21; /* Color de la aplicación (el gris más oscuro) */
-    --sidebar-color: #24143a; /* Fondo de la barra lateral (el púrpura oscuro) */
+    --bg-color: #1a1a2e; 
+    --main-bg: #0d0d21; 
+    --sidebar-color: #24143a; 
     --text-color: #e9e9f4;
-    --primary-color: #f7e040; /* Amarillo brillante para botones principales */
-    --accent-color: #8c7ae6; /* Púrpura de acento */
+    --primary-color: #f7e040; 
+    --accent-color: #8c7ae6; 
     --border-color: #3e3e5e;
-    --hover-color: #9c9cff; /* Azul claro para hover */
+    --hover-color: #9c9cff; 
 }
 
 /* --- REGLAS BÁSICAS --- */
@@ -228,6 +228,9 @@ body {
 .fav-btn {
     color: var(--accent-color);
 }
+.fav-btn.active {
+    color: #ff4444; /* Rojo para favorito activo */
+}
 
 .download-btn {
     background-color: var(--primary-color);
@@ -323,6 +326,9 @@ body {
 
 .visualizer-toggle {
     font-size: 1em !important;
+}
+.visualizer-toggle.active {
+    color: var(--primary-color);
 }
 
 /* Sugerencias de Canciones */
