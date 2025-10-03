@@ -1,4 +1,4 @@
-// Funciones globales para que el HTML pueda llamarlas directamente
+// Hacemos las funciones globales para que el HTML pueda llamarlas directamente
 let playNextTrack;
 let playPrevTrack;
 
@@ -8,58 +8,95 @@ document.addEventListener('DOMContentLoaded', () => {
     const trackTitle = document.getElementById('track-title');
     const tracklistUl = document.getElementById('tracklist-ul');
     const visualizerCanvas = document.getElementById('frequency-visualizer');
-    const progressBar = document.getElementById('progress-bar');
-    const visualizerToggleBtn = document.querySelector('.visualizer-toggle'); // NUEVO
-    const playAllBtn = document.querySelector('.play-all-btn'); // NUEVO
-    const mixBtn = document.querySelector('.mix-btn'); // NUEVO
-    const favBtn = document.querySelector('.fav-btn'); // NUEVO
+    const progressBar = document.getElementById('progress-bar'); // BARRA DE PROGRESO
+    const visualizerToggleBtn = document.querySelector('.visualizer-toggle');
+    const playAllBtn = document.querySelector('.play-all-btn');
+    const mixBtn = document.querySelector('.mix-btn');
+    const favBtn = document.querySelector('.fav-btn');
     const canvasCtx = visualizerCanvas.getContext('2d');
     
     // Crear elemento de mensaje de error
     const errorMessage = document.createElement('div');
     errorMessage.className = 'error-message';
     errorMessage.id = 'error-message';
+    // Se inserta en la sección de visualizador
     document.querySelector('.player-visualizer-section').appendChild(errorMessage);
 
     // 2. LISTA DE CANCIONES Y ESTADOS
+
     const tracks = [
+
+
 
         // Asegúrate de que los nombres de archivo y la duración sean CORRECTOS.
 
+
+
         { title: '01. Once Upon a Time', src: './Audio/01. Once Upon A Time.mp3', duration: '1:30' },
+
+
 
         { title: '02. Fallen Down', src: './Audio/04. Fallen Down.mp3', duration: '0:58' },
 
+
+
         { title: '03. Your Best Friend', src: './Audio/03. Your Best Friend.mp3', duration: '0:20' },
+
+
 
         { title: '04. Ruins', src: './Audio/05. Ruins.mp3', duration: '1:30' },
 
+
+
         { title: '05. Heartache', src: './Audio/14. Heartache.mp3', duration: '1:34' },
+
+
 
         { title: '06. Snowdin Town', src: './Audio/22. Snowdin Town.mp3', duration: '1:17' },
 
+
+
         { title: '07. Bonetrousle', src: './Audio/24. Bonetrousle.mp3', duration: '2:30' },
+
+
 
         { title: '08. Waterfall', src: './Audio/31. Waterfall.mp3', duration: '1:36' },
 
+
+
         { title: '09. Temmie Village', src: './Audio/43. Temmie Village.mp3', duration: '0:30' },
+
+
 
         { title: '10. Spear of Justice', src: './Audio/46. Spear of Justice.mp3', duration: '1:54' },
 
+
+
         { title: '11. Dating Start!', src: './Audio/25. Dating Start!.mp3', duration: '1:56' },
+
+
 
         { title: '12. Death by Glamour', src: './Audio/67. Death by Glamour.mp3', duration: '2:14' },
 
+
+
         { title: '13. Spider Dance', src: './Audio/58. Spider Dance.mp3', duration: '1:46' },
+
+
 
         { title: '14. ASGORE', src: './Audio/74. ASGORE.mp3', duration: '2:36' },
 
+
+
         { title: '15. MEGALOVANIA', src: './Audio/94. MEGALOVANIA.mp3', duration: '2:36' }
 
+
+
     ];
+
     const audio = new Audio();
     audio.id = 'miAudio';
-    document.body.appendChild(audio);
+    document.body.appendChild(audio); // Aseguramos que el elemento audio esté en el DOM
     
     let currentTrackIndex = 0;
     let audioContext;
@@ -70,6 +107,14 @@ document.addEventListener('DOMContentLoaded', () => {
     let isUserInteraction = false;
     let isVisualizerActive = true; 
     let isShuffling = false; 
+
+    const showError = (message) => {
+        errorMessage.textContent = message;
+        errorMessage.style.display = 'block';
+        setTimeout(() => {
+            errorMessage.style.display = 'none';
+        }, 5000);
+    };
 
     // 3. FUNCIONES DE AUDIO CONTEXT Y VISUALIZADOR
 
@@ -103,6 +148,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         analyser.getByteFrequencyData(dataArray);
 
+        // Ajustar tamaño del canvas
         visualizerCanvas.width = visualizerCanvas.clientWidth;
         visualizerCanvas.height = visualizerCanvas.clientHeight;
         
@@ -114,9 +160,10 @@ document.addEventListener('DOMContentLoaded', () => {
         for (let i = 0; i < dataArray.length; i++) {
             const barHeight = (dataArray[i] / 255) * visualizerCanvas.height;
             
+            // Colores de Undertale (Amarillo y Púrpura)
             const gradient = canvasCtx.createLinearGradient(0, visualizerCanvas.height - barHeight, 0, visualizerCanvas.height);
-            gradient.addColorStop(0, '#f7e040'); // Amarillo
-            gradient.addColorStop(1, '#8c7ae6'); // Púrpura
+            gradient.addColorStop(0, '#f7e040'); 
+            gradient.addColorStop(1, '#8c7ae6'); 
             
             canvasCtx.fillStyle = gradient;
             canvasCtx.fillRect(x, visualizerCanvas.height - barHeight, barWidth, barHeight);
@@ -130,6 +177,7 @@ document.addEventListener('DOMContentLoaded', () => {
             animationId = null;
         }
         if (canvasCtx) {
+            // Limpia el canvas
             canvasCtx.clearRect(0, 0, visualizerCanvas.width, visualizerCanvas.height);
         }
     };
@@ -155,6 +203,7 @@ document.addEventListener('DOMContentLoaded', () => {
             playPauseBtn.innerHTML = '<i class="fa-solid fa-play"></i>';
         }
         
+        // Actualizar la clase 'playing' en la lista
         document.querySelectorAll('.tracklist li').forEach((li, i) => {
             li.classList.toggle('playing', i === index);
         });
@@ -165,6 +214,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         audio.load();
         
+        // Resetear la barra de progreso
         progressBar.value = 0;
     };
 
@@ -196,7 +246,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     drawVisualizer();
                 }
             }).catch(error => {
-                showError("Error al reproducir. Haz clic en el botón de play o verifica la ruta del audio.");
+                showError("Error al reproducir. Revisa la ruta de tus archivos de audio.");
                 playPauseBtn.innerHTML = '<i class="fa-solid fa-play"></i>';
             });
         } else {
@@ -212,7 +262,7 @@ document.addEventListener('DOMContentLoaded', () => {
             let randomIndex;
             do {
                 randomIndex = Math.floor(Math.random() * tracks.length);
-            } while (randomIndex === currentTrackIndex); 
+            } while (randomIndex === currentTrackIndex);
             nextIndex = randomIndex;
         } else {
             nextIndex = (currentTrackIndex + 1) % tracks.length;
@@ -233,9 +283,9 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const handlePlayAll = () => {
-        loadTrack(0); 
+        loadTrack(0); // Comienza desde la primera canción
         if (isShuffling) {
-            isShuffling = false; 
+            isShuffling = false; // Desactiva mezcla si se presiona "Reproducir todo"
             mixBtn.classList.remove('active');
             mixBtn.innerHTML = '<i class="fa-solid fa-shuffle"></i> Mezclar';
         }
@@ -250,7 +300,7 @@ document.addEventListener('DOMContentLoaded', () => {
             : '<i class="fa-solid fa-shuffle"></i> Mezclar';
         
         if (isShuffling && audio.paused) {
-            showError('Mezcla activada. Haz clic en Reproducir para comenzar.');
+            showError('Mezcla activada. Se reproducirá de forma aleatoria.');
         }
     };
 
@@ -261,6 +311,7 @@ document.addEventListener('DOMContentLoaded', () => {
         tracks.forEach((track, index) => {
             const li = document.createElement('li');
             
+            // Usamos la duración para el diseño de la lista
             li.innerHTML = `
                 <div class="track-info-sidebar">
                     <span class="track-title-sidebar">${track.title}</span>
@@ -280,20 +331,19 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
     
-    // 6. ASIGNACIÓN DE EVENT LISTENERS A NUEVOS BOTONES
+    // 6. ASIGNACIÓN DE EVENT LISTENERS
     
     playPauseBtn.addEventListener('click', togglePlayPause);
     visualizerToggleBtn.addEventListener('click', toggleVisualizer);
     playAllBtn.addEventListener('click', handlePlayAll);
     mixBtn.addEventListener('click', handleMixToggle);
 
-    // Placeholder para el botón Favorito
-    favBtn.addEventListener('click', () => {
-        favBtn.classList.toggle('active');
-        showError(favBtn.classList.contains('active') ? 'Añadido a Favoritos.' : 'Eliminado de Favoritos.');
+    // Lógica simple para botón Favorito y Filtros
+    document.querySelector('.fav-btn').addEventListener('click', (e) => {
+        e.currentTarget.classList.toggle('active');
+        showError(e.currentTarget.classList.contains('active') ? 'Añadido a Favoritos.' : 'Eliminado de Favoritos.');
     });
 
-    // Placeholder para los botones de Filtro y Sugerencias
     document.querySelectorAll('.filter-btn, .suggestion-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
             e.target.parentNode.querySelectorAll('button').forEach(b => b.classList.remove('active'));
@@ -328,7 +378,7 @@ document.addEventListener('DOMContentLoaded', () => {
     audio.addEventListener('ended', playNextTrack);
     
     audio.addEventListener('error', (e) => {
-        showError('Error al cargar el audio. Verifica que los archivos existan en la carpeta Audio/');
+        showError('Error al cargar el audio. Verifica que los archivos existan en la carpeta Audio/ y que usas un servidor local.');
     });
 
     // Inicialización
